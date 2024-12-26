@@ -1,1 +1,2 @@
-# fullstackserviceprogramming
+# Eodirok 어디록 - 협업 중간 산출물 자동 아카이빙 프로그램
+\
