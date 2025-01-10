@@ -1,7 +1,7 @@
 import psycopg2
 from psycopg2 import sql
-from create_db import UserDatabaseManager
-9
+from .create_db import UserDatabaseManager
+
 class SummaryDBManager(UserDatabaseManager):
     def __init__(self, admin_config):
         super().__init__(admin_config)
@@ -38,6 +38,7 @@ class SummaryDBManager(UserDatabaseManager):
     def get_table_name(self, summary_name):
         return f"summary_{summary_name.lower().replace(' ', '_')}"
     
+"""    
 #예시 코드드-
 if __name__ == "__main__":
     file_path = 'admin_info.txt'
@@ -91,3 +92,4 @@ if __name__ == "__main__":
     manager.close_connection(user_connection)
     manager.delete_user_database(user_id)
     manager.close_admin_connection()
+    """

@@ -1,10 +1,11 @@
 import psycopg2
 from psycopg2 import sql
-from create_db import UserDatabaseManager
+from .create_db import UserDatabaseManager
 9
 class PjDBManager(UserDatabaseManager):
     def __init__(self, admin_config):
         super().__init__(admin_config)
+        print(admin_config)
 
     def create_project_table(self, connection, project_name):
         """
@@ -38,6 +39,9 @@ class PjDBManager(UserDatabaseManager):
     def get_table_name(self, project_name):
         return f"project_{project_name.lower().replace(' ', '_')}"
     
+
+
+"""    
 #예시 코드드-
 if __name__ == "__main__":
     file_path = 'admin_info.txt'
@@ -91,3 +95,4 @@ if __name__ == "__main__":
     manager.close_connection(user_connection)
     manager.delete_user_database(user_id)
     manager.close_admin_connection()
+    """

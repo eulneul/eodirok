@@ -73,8 +73,9 @@ class TopicExtractor:
 
         return topics
 
+"""
 # 불용어 파일 경로
-stop_words_file = 'stop_word.txt'
+stop_words_file = 'server/services/stop_word.txt'
 
 # TopicExtractor 클래스 초기화
 topic_extractor = TopicExtractor(stop_words_file)
@@ -86,3 +87,4 @@ input_text = "안녕하세요! 고객사로부터 전달받은 데이터와 관�
 topics = topic_extractor.extract_topics(input_text, num_topics=1)
 
 print("추출된 주제:", topics)
+"""

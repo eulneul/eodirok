@@ -1,7 +1,24 @@
 import psycopg2
 from psycopg2 import sql
 
+file_path = 'server/models/admin_info.txt'
 
+with open(file_path, 'r') as file:
+        lines = file.readlines()
+
+localhost = lines[0].strip()
+dbname = lines[1].strip()
+user = lines[2].strip()
+password = lines[3].strip()
+port = int(lines[4].strip())
+
+admin_config = {
+    'host': localhost,
+    'dbname': dbname,
+    'user': user,
+    'password': password,
+    'port': port
+    }
 
 class UserDatabaseManager:
     def __init__(self, admin_config):
@@ -85,6 +102,8 @@ class UserDatabaseManager:
         :return: 사용자 DB 연결 객체
         """
         db_name = f"user_db_{user_id}"
+        print(db_name)
+        print(admin_config)
         try:
             user_connection = psycopg2.connect(
                 host=self.admin_config['host'],
@@ -93,6 +112,7 @@ class UserDatabaseManager:
                 password=self.admin_config['password'],
                 port=self.admin_config['port']
             )
+            print(user_connection)
             print(f"Connected to user database '{db_name}'.")
             return user_connection
         except Exception as e:
@@ -131,6 +151,7 @@ class UserDatabaseManager:
             self.admin_connection.close()
         print("Admin connection closed.")
 
+'''
 #예제 
 if __name__ == "__main__":
     file_path = 'admin_info.txt'
@@ -185,3 +206,4 @@ if __name__ == "__main__":
 
     # Close admin connection
     manager.close_admin_connection()
+    '''

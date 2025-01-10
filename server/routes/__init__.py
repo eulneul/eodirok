@@ -1,9 +1,10 @@
 from flask import Blueprint
+from .export_routes import *
+from .message_routes import *
+from .archive_routes import *
 
-# 블루프린트 생성
-model_summary_bp = Blueprint('model_summary', __name__)
-db_select_bp = Blueprint('db_select', __name__)
-
-# 각 모듈에서 라우트를 가져옴
-from .model_summary import *
-from .db_select import *
+# Blueprint 묶음 생성
+def register_routes(app):
+    app.register_blueprint(message_bp, url_prefix='/messages')
+    app.register_blueprint(archive_bp, url_prefix='/archives')
+    app.register_blueprint(export_bp, url_prefix='/export')
