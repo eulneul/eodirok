@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
 import 'summary_screen.dart';
+import 'record_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -111,111 +112,124 @@ void didChangeDependencies() {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Screen"),
-        automaticallyImplyLeading: false, // 뒤로 가기 버튼 제거
-      ),
-      body: Stack(
-        children: [
-          // 배경 요소
-          Positioned(
-            left: 800,
-            top: 0,
-            child: Container(
-              width: 1024,
-              height: 1024,
-              decoration: ShapeDecoration(
-                color: Color(0xFF26CE7F),
-                shape: OvalBorder(),
-              ),
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text("Home Screen"),
+      automaticallyImplyLeading: false,
+    ),
+    body: Stack(
+      children: [
+        // 배경 요소
+        Positioned(
+          left: 800,
+          top: 0,
+          child: Container(
+            width: 1024,
+            height: 1024,
+            decoration: ShapeDecoration(
+              color: Color(0xFF26CE7F),
+              shape: OvalBorder(),
             ),
           ),
-          Positioned(
-            left: 974,
-            top: 0,
-            child: Container(
-              width: 1024,
-              height: 1024,
-              decoration: ShapeDecoration(
-                color: Color(0xFF31937B),
-                shape: OvalBorder(),
-              ),
+        ),
+        Positioned(
+          left: 974,
+          top: 0,
+          child: Container(
+            width: 1024,
+            height: 1024,
+            decoration: ShapeDecoration(
+              color: Color(0xFF31937B),
+              shape: OvalBorder(),
             ),
           ),
-          // 메인 내용
-          Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: 50),
-                  Text(
-                    "우리 프로젝트.. 어디로 가고 있지? 어디록!",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 32,
-                      color: Color(0xFF31937B),
-                      fontWeight: FontWeight.w400,
-                    ),
+        ),
+        // 메인 내용
+        Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 50),
+                Text(
+                  "우리 프로젝트.. 어디로 가고 있지? 어디록!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: Color(0xFF31937B),
+                    fontWeight: FontWeight.w400,
                   ),
-                  SizedBox(height: 50),
-                  ElevatedButton(
-                    onPressed: () => _pickAndUploadFile(context),
-                    child: Text("파일 업로드"),
-                  ),
-                  SizedBox(height: 20),
-                  if (_jsonData != null) ...[
-                    Text(
-                      "JSON 데이터가 서버로부터 수신되었습니다!",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () async {
-                        try {
-                          List<dynamic> summary = await _sendDataToServerForSummary();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SummaryScreen(
-                                data: summary,
-                                userId: userId!,
-                              ),
-                            ),
-                          );
-                        } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("요약 실패: $e")),
-                          );
-                        }
-                      },
-                      child: Text("요약하러 가기"),
-                    ),
-                  ],
-                  SizedBox(height: 30),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/');
-                    },
-                    child: Text(
-                      "Logout",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.underline,
+                ),
+                SizedBox(height: 50),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RecordScreen(userId: userId!),
                       ),
-                    ),
+                    );
+                  },
+                  child: Text("지난 업무 기록 보기"),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () => _pickAndUploadFile(context),
+                  child: Text("파일 업로드"),
+                ),
+                SizedBox(height: 20),
+                if (_jsonData != null) ...[
+                  Text(
+                    "JSON 데이터가 서버로부터 수신되었습니다!",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        List<dynamic> summary = await _sendDataToServerForSummary();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SummaryScreen(
+                              data: summary,
+                              userId: userId!,
+                              originalData: _jsonData!, // 원본 데이터 전달
+                            ),
+                          ),
+                        );
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("요약 실패: $e")),
+                        );
+                      }
+                    },
+                    child: Text("요약하러 가기"),
                   ),
                 ],
-              ),
+                SizedBox(height: 30),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/');
+                  },
+                  child: Text(
+                    "Logout",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 }

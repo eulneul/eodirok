@@ -38,7 +38,24 @@ class PjDBManager(UserDatabaseManager):
 
     def get_table_name(self, project_name):
         return f"project_{project_name.lower().replace(' ', '_')}"
-    
+    def get_project_table(self, connection):
+        """
+        user_id의 데이터베이스에서 summary_로 시작하는 테이블 목록 반환
+        """
+        try:
+            query = """
+            SELECT table_name 
+            FROM information_schema.tables 
+            WHERE table_schema = 'public' AND table_name LIKE 'project_%'
+            """
+            cursor = connection.cursor()
+            cursor.execute(query)
+            tables = cursor.fetchall()
+            cursor.close()
+            return [table[0] for table in tables]  # 테이블 이름만 추출하여 리스트로 반환
+        except Exception as e:
+            print(f"Error retrieving summary tables: {e}")
+            return []
 
 
 """    
