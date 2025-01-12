@@ -105,7 +105,7 @@ def save_message(user_id, project_name):
 
         # 메시지 저장
         for item in data_list:
-            query = "INSERT INTO {table} (name, description, project_at) VALUES (%s, %s, %s)"
+            query = "INSERT INTO {table} (name, description, summary_at) VALUES (%s, %s, %s)"
             params = (item['name'], item['topic'], item['project_at'])
             summary_manager.execute_summary_crud(user_connection, project_name, query, params)
 
@@ -136,4 +136,26 @@ def get_summary(user_id, project_name):
         return jsonify({"error": str(e)}) , 500
     
 
+@archive_bp.route('/get_summary_tables/<user_id>', methods=['GET'])
+def get_summary_tables(user_id):
+    """
+    user_id의 데이터베이스에서 summary_로 시작하는 테이블 리스트 반환
+    """
+    try:
+        # 사용자 데이터베이스 연결
+        user_connection = summary_manager.connect_user_database(user_id)
 
+        # summary_로 시작하는 테이블 이름 가져오기
+        tables = summary_manager.get_summary_tables(user_connection)
+
+        # 연결 닫기
+        summary_manager.close_connection(user_connection)
+
+        # 테이블이 없는 경우 메시지 반환
+        if not tables:
+            return jsonify({"message": "No summary tables found for the user."}), 200
+
+        return jsonify({"summary_tables": tables}), 200
+    except Exception as e:
+        print(f"Error retrieving summary tables: {e}")
+        return jsonify({"error": str(e)}), 500

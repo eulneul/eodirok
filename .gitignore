@@ -1,2 +1,4 @@
 .venv/
 server/models/admin_info.txt
+test.txt
+docker-compose.yml
