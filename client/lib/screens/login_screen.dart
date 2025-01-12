@@ -91,7 +91,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 50),
+                    // 로고 추가
+                    Image.asset(
+                      'images/logo_eodirok1.png', // 로고 이미지 경로
+                      height: 100, // 로고 높이
+                      fit: BoxFit.contain,
+                    ),
+                    SizedBox(height: 30),
+                    Text(
+                  "우리 프로젝트.. 어디로 가고 있지? 어디록!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400,
+                  ),
+                      ),
+                     // 로고와 입력 박스 간 간격
+                     SizedBox(height: 100),
                     Container(
                       padding: const EdgeInsets.all(24),
                       decoration: ShapeDecoration(
