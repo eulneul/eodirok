@@ -39,8 +39,22 @@
 <img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white"> <img src="https://img.shields.io/badge/ginuciorn-499848?style=for-the-badge&logo=gunicorn&logoColor=white"> <img src="https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white">
 
 
-
 ### DB & Microservices & Cloud Service
 <img src="https://img.shields.io/badge/postgres-4169E1?style=for-the-badge&logo=postgresql&logoColor=white"> <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> <img src="https://img.shields.io/badge/gcp-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white">
 
 
+## 🛝 실행방법
+### Client
+
+```shell
+cd eodirok/client
+flutter build web
+cd build/web
+python3 -m http.server 9000
+```
+
+### Server
+```shell
+cd eodirok
+docker-compose up --build
+```
