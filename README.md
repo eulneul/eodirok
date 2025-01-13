@@ -1,6 +1,7 @@
 # Eodirok 어디록 - 협업 중간 산출물 자동 아카이빙 프로그램
 <p align="center"><img width="400" alt="ㄴㅇㄹ자산 3@2x" src="https://github.com/user-attachments/assets/eeee66a8-b436-453d-8749-d852a2500df3" /></p>
-
+<br/>
+ <p align="center">${\textsf{\color{#31937B}우리 프로젝트... 어디로 가지?}}$</p>
  <p align="center">${\textsf{\color{#31937B}어디록(Eodirok)}}$은 회사 메신저 등 단체 메신저 내용(txt 형식)을 입력받으면 업무 내용, 업무 카테고리, 날짜 등을 테이블 형태로 저장해주는 협업 중간 산출물 자동 아카이빙 프로그램입니다.</p>
 
  
@@ -36,7 +37,7 @@
 <img src="https://img.shields.io/badge/flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white">
 
 ### Server
-<img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white"> <img src="https://img.shields.io/badge/ginuciorn-499848?style=for-the-badge&logo=gunicorn&logoColor=white"> <img src="https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white">
+<img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white"> <img src="https://img.shields.io/badge/gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=white"> <img src="https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white">
 
 
 ### DB & Microservices & Cloud Service
